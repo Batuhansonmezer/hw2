@@ -280,8 +280,6 @@ new_role["actor_id"] = actor12["id"]
 new_role.save
 
 
-
-
 # Prints a header for the movies output
 puts "Movies"
 puts "======"
@@ -289,6 +287,14 @@ puts ""
 
 # Query the movies data and loop through the results to display the movies output.
 # TODO!
+
+all_movies= Movie.all
+
+for movie in all_movies
+    studio = Studio.find_by({"id" => movie["studio_id"]})
+    puts "#{movie["title"]} #{movie["year_released"]} #{movie["rated"]} #{studio["name"]}"
+   
+end 
 
 # Prints a header for the cast output
 puts ""
@@ -298,3 +304,11 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie.
 # TODO!
+
+top_cast = Role.all
+
+for cast in top_cast
+    actor_name = Actor.find_by({"id" => cast["actor_id"]})
+    movie_name = Movie.find_by({"id" => cast["movie_id"]})
+    puts "#{movie_name["title"]} #{actor_name["name"]} #{cast["character_name"]}"
+end
